@@ -12,7 +12,6 @@ public class PersonMapper {
 
     public static PersonEntity requestPessoa(PersonRequest pessoaRequest) {
         return new PersonEntity.builder()
-                //.id(pessoaRequest.getId())
                 .nome(pessoaRequest.getNome())
                 .dataDeNascimento(pessoaRequest.getDataDeNascimento())
                 .cepEntity(pessoaRequest.getCepEntity())
