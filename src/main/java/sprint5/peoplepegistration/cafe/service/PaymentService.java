@@ -5,6 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class CafeService {
-
+public class PaymentService {
 }
