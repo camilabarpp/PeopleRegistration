@@ -20,6 +20,11 @@ public class CafeController {
         return Mono.just("Total amount: R$ ");
     }
 
+    @GetMapping()
+    public Mono<String> menu() {
+        return cafeService.menu();
+    }
+
     @GetMapping("/1")
     public Mono<String> expresso() {
         return cafeService.expresso();

@@ -17,4 +17,15 @@ public interface PeopleRepository extends ReactiveMongoRepository<PersonEntity, 
             String numberAccount,
             String dateExpiration,
             String cvv);
+
+    Mono<Boolean> existsByIdAndDebitCard_NumberAndDebitCard_DateExpirationAndDebitCard_Cvv(
+            String id,
+            String numberAccount,
+            String dateExpiration,
+            String cvv);
+
+    Mono<Boolean> existsByIdAndPaypal_EmailAndPaypal_Password(
+            String id,
+            String email,
+            String password);
 }

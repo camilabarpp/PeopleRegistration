@@ -25,13 +25,4 @@ public class PaymentController {
     public Mono<String> verifyAndPayCreditCard(@RequestBody PersonEntity creditCard) {
         return paymentService.payAndVerifyCreditCard(creditCard);
     }
-
-    @GetMapping("/credito2/") //Método teste para verificar os dados de pagamento no banco
-    public Mono<Boolean> verifyAndPayCreditCard2(@RequestBody PersonEntity creditCard) {
-        return peopleRepository.existsByIdAndCreditCard_NumberAndCreditCard_DateExpirationAndCreditCard_Cvv(
-                creditCard.getId(),
-                creditCard.getCreditCard().getNumber(),
-                creditCard.getCreditCard().getDateExpiration(),
-                creditCard.getCreditCard().getCvv());
-    }
 }
