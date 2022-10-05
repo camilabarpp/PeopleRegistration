@@ -20,12 +20,11 @@ public class ShoppingCartService {
         return just(nomes);
     }
 
-    public Mono<Void> deleteShoppingCart() {
+    public void deleteShoppingCart() {
         if (!items.isEmpty()) {
             nomes.clear();
             items.clear();
         }
-        return Mono.empty();
     }
 
     public Double getPrice(Double item) {

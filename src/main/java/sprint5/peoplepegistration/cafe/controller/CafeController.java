@@ -14,11 +14,6 @@ public class CafeController {
 
     private final CafeService cafeService;
 
-    @GetMapping()
-    public Mono<String> menu() {
-        return cafeService.menu();
-    }
-
     @DeleteMapping
     @ResponseStatus(NO_CONTENT)
     public Mono<String> deleteShoppingCart() {
@@ -32,7 +27,7 @@ public class CafeController {
 
     @GetMapping("/2")
     public Mono<String> tea() {
-        return cafeService.tea().or(cafeService.menu());
+        return cafeService.tea();
     }
 
     @GetMapping("/3")

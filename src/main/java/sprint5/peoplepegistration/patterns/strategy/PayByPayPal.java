@@ -1,6 +1,7 @@
 package sprint5.peoplepegistration.patterns.strategy;
 
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cafe.service.ShoppingCartService;
 import sprint5.peoplepegistration.people.service.PeopleService;
 
@@ -26,19 +27,19 @@ public class PayByPayPal implements PayStrategy {
     }*/
 
     @Override
-    public String pay(String paymentAmount) {
+    public Mono<String> pay(String paymentAmount) {
         if (signedIn && signedIn2) {
             if (paymentAmount.startsWith("0")) {
-                return """
+                return Mono.just("""
                         
                         Total amount R$ 0,00
-                        Shopping cart is empty!""";
+                        Shopping cart is empty!""");
             } else {
                 shoppingCartService.deleteShoppingCart();
-                return "\nData verification has been sucessfull. \n" +"Paying " + paymentAmount + " using PayPal.";
+                return Mono.just("\nData verification has been sucessfull. \n" +"Paying " + paymentAmount + " using PayPal.");
             }
         } else {
-            return "\nWrong email or password!";
+            return Mono.just("\nWrong email or password!");
         }
     }
 

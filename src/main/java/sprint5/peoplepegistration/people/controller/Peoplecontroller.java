@@ -56,4 +56,19 @@ public class Peoplecontroller {
     public Mono<Void> deleteAll() {
         return peopleService.deleteAll();
     }
+
+    @GetMapping("/teste")
+    public Mono<Boolean> existsByNome(@RequestBody PersonEntity personRequest) {
+        return peopleService.existsByNome(personRequest);
+    }
+
+    @GetMapping("/teste2")
+    public Mono<Boolean> existsByDataDeNascimento(@RequestBody PersonEntity personRequest) {
+        return peopleService.existsByDataDeNascimento(personRequest);
+    }
+
+    @GetMapping("/teste3")
+    public Mono<Boolean> existsByIdAndNome(@RequestBody PersonEntity personRequest) {
+        return peopleService.existsByIdAndNome(personRequest);
+    }
 }

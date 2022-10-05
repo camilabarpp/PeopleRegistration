@@ -14,7 +14,6 @@ public class PeopleService {
     private PeopleRepository peopleRepository;
     private CepService cepService;
 
-
     public Flux<PersonEntity> findAll() {
         return peopleRepository.findAll();
     }
@@ -28,12 +27,23 @@ public class PeopleService {
                 .flatMap(peopleRepository::save);
     }
 
-
     public Mono<Void> deleteById(String id) {
         return peopleRepository.deleteById(id);
     }
 
     public Mono<Void> deleteAll() {
         return peopleRepository.deleteAll();
+    }
+
+    public Mono<Boolean> existsByNome(PersonEntity personEntity) {
+        return peopleRepository.existsByNome(personEntity.getNome());
+    }
+
+    public Mono<Boolean> existsByIdAndNome(PersonEntity personEntity) {
+        return peopleRepository.existsByIdAndNome(personEntity.getId(), personEntity.getNome());
+    }
+
+    public Mono<Boolean> existsByDataDeNascimento(PersonEntity personEntity) {
+        return peopleRepository.existsByDataDeNascimento(personEntity.getDataDeNascimento());
     }
 }
