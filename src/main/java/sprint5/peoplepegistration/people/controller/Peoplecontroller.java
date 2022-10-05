@@ -41,7 +41,7 @@ public class Peoplecontroller {
 
     @PutMapping("/{id}")
     @ResponseStatus(CREATED)
-    public Flux<PersonResponse> update(@PathVariable String id, @RequestBody PersonRequest personRequest) {
+    public Mono<PersonResponse> update(@PathVariable String id, @RequestBody PersonRequest personRequest) {
         return peopleService.update(id, requestPessoa(personRequest))
                 .map(PersonMapper::pessoaResponse);
     }
