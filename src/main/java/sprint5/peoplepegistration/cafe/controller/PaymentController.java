@@ -22,7 +22,17 @@ public class PaymentController {
     private final PeopleRepository peopleRepository;
 
     @GetMapping("/credito/")
-    public Mono<String> verifyAndPayCreditCard(@RequestBody PersonEntity creditCard) {
-        return paymentService.payAndVerifyCreditCard(creditCard);
+    public Mono<String> verifyAndPayCreditCard(@RequestBody PersonEntity personEntity) {
+        return paymentService.payAndVerifyCreditCard(personEntity);
+    }
+
+    @GetMapping("/debit/")
+    public Mono<String> verifyAndPayDebitCard(@RequestBody PersonEntity personEntity) {
+        return paymentService.payAndVerifyDebitCard(personEntity);
+    }
+
+    @GetMapping("/paypal/")
+    public Mono<String> verifyAndPayPayPal(@RequestBody PersonEntity personEntity) {
+        return paymentService.payAndVerifyPayPal(personEntity);
     }
 }
