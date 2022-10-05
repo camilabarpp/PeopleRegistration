@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreditCard {
+    private String id;
     private String number;
     private String dateExpiration;
     private String cvv;
     public CreditCard(builder builder) {
+        this.id = builder.id;
         this.number = builder.number;
         this.dateExpiration = builder.dateExpiration;
         this.cvv = builder.cvv;
@@ -20,9 +22,15 @@ public class CreditCard {
     @Getter
     @NoArgsConstructor
     public static class builder {
+        private String id;
         private String number;
         private String dateExpiration;
         private String cvv;
+
+        public builder id(String id) {
+            this.id = id;
+            return this;
+        }
 
         public builder number(String number) {
             this.number = number;
