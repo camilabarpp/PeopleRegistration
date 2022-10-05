@@ -7,8 +7,6 @@ import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 import sprint5.peoplepegistration.cep.repository.CepRepository;
 import sprint5.peoplepegistration.configuration.webClient.cep.IntegrationCepClient;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
-import sprint5.peoplepegistration.people.model.request.PersonRequest;
-import sprint5.peoplepegistration.people.model.response.PersonResponse;
 
 @Service
 @AllArgsConstructor

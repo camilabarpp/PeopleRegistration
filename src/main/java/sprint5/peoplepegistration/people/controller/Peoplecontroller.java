@@ -4,19 +4,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import sprint5.peoplepegistration.cep.service.CepService;
-import sprint5.peoplepegistration.configuration.webClient.cep.IntegrationCepClient;
-import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.model.mapper.PersonMapper;
 import sprint5.peoplepegistration.people.model.request.PersonRequest;
 import sprint5.peoplepegistration.people.model.response.PersonResponse;
 import sprint5.peoplepegistration.people.service.PeopleService;
 
-import java.util.concurrent.ExecutionException;
-
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static sprint5.peoplepegistration.people.model.mapper.PersonMapper.*;
+import static sprint5.peoplepegistration.people.model.mapper.PersonMapper.requestPessoa;
 
 @RestController
 @RequestMapping("/api/v1/registration")
@@ -24,7 +19,6 @@ import static sprint5.peoplepegistration.people.model.mapper.PersonMapper.*;
 public class Peoplecontroller {
 
     private final PeopleService peopleService;
-    private final CepService integration;
 
     @GetMapping
     public Flux<PersonResponse> findAll() {
@@ -45,6 +39,13 @@ public class Peoplecontroller {
                 .map(PersonMapper::pessoaResponse);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(CREATED)
+    public Flux<PersonResponse> update(@PathVariable String id, @RequestBody PersonRequest personRequest) {
+        return peopleService.update(id, requestPessoa(personRequest))
+                .map(PersonMapper::pessoaResponse);
+    }
+
     @DeleteMapping("{id}")
     @ResponseStatus(NO_CONTENT)
     public Mono<Void> deleteById(@PathVariable String id) {
@@ -57,18 +58,4 @@ public class Peoplecontroller {
         return peopleService.deleteAll();
     }
 
-    @GetMapping("/teste")
-    public Mono<Boolean> existsByNome(@RequestBody PersonEntity personRequest) {
-        return peopleService.existsByNome(personRequest);
-    }
-
-    @GetMapping("/teste2")
-    public Mono<Boolean> existsByDataDeNascimento(@RequestBody PersonEntity personRequest) {
-        return peopleService.existsByDataDeNascimento(personRequest);
-    }
-
-    @GetMapping("/teste3")
-    public Mono<Boolean> existsByIdAndNome(@RequestBody PersonEntity personRequest) {
-        return peopleService.existsByIdAndNome(personRequest);
-    }
 }
