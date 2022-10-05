@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
-import sprint5.peoplepegistration.cafe.model.payment.CreditCard;
-import sprint5.peoplepegistration.cafe.model.payment.DebitCard;
-import sprint5.peoplepegistration.cafe.model.payment.PayPal;
 import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 
 @Data
@@ -20,18 +17,12 @@ public class PersonResponse {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private String dataDeNascimento;
     private CepEntity cepEntity;
-/*    private DebitCard debitCard;
-    private CreditCard creditCard;
-    private PayPal paypal;*/
 
     public PersonResponse(builder builder) {
         this.id = builder.id;
         this.nome = builder.nome;
         this.dataDeNascimento = builder.dataDeNascimento;
         this.cepEntity = builder.cepEntity;
-/*        this.creditCard = builder.creditCard;
-        this.debitCard = builder.debitCard;
-        this.paypal = builder.paypal;*/
     }
 
     @Getter
@@ -42,9 +33,6 @@ public class PersonResponse {
         private String nome;
         private String dataDeNascimento;
         private CepEntity cepEntity;
-/*        private DebitCard debitCard;
-        private CreditCard creditCard;
-        private PayPal paypal;*/
 
         public builder id(String id) {
             this.id = id;
@@ -65,21 +53,6 @@ public class PersonResponse {
             this.cepEntity = cepEntity;
             return this;
         }
-
-/*        public builder debitCard(DebitCard debitCard) {
-            this.debitCard = debitCard;
-            return this;
-        }
-
-        public builder creditCard(CreditCard creditCard) {
-            this.creditCard = creditCard;
-            return this;
-        }
-
-        public builder paypal(PayPal paypal) {
-            this.paypal = paypal;
-            return this;
-        }*/
 
         public PersonResponse build() {
             return new PersonResponse(this);
