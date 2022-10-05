@@ -16,15 +16,16 @@ public class ShoppingCartService {
     List<Double> items;
     List<String> nomes;
 
-    public Flux<List<String>> getNomes() {
-        return just(nomes);
+    public Flux<String> getNomes() {
+        return Flux.fromIterable(nomes);
     }
 
-    public void deleteShoppingCart() {
+    public Mono<Void> deleteShoppingCart() {
         if (!items.isEmpty()) {
             nomes.clear();
-            items.clear();
+           items.clear();
         }
+        return Mono.empty();
     }
 
     public Double getPrice(Double item) {
