@@ -32,7 +32,7 @@ public class ApiExceptionHandler extends DefaultResponseErrorHandler {
     public ErrorResponse apiNotFoundException(ApiNotFoundException e) {
         return  new ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
-                .message("Dados não encontrados!")
+                .message("Sorry, data not found!")
                 .field(NOT_FOUND.name())
                 .parameter(e.getClass().getSimpleName())
                 .build();

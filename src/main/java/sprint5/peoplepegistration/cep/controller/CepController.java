@@ -14,7 +14,7 @@ public class CepController {
 
     private final CepService cepService;
 
-/*    @GetMapping("{cep}") //Está funcionando
+    @GetMapping("{cep}") //Está funcionando
     public Mono<CepEntity> findCep(@PathVariable String cep) {
         return cepService.findByCep(cep);
     }
@@ -22,5 +22,5 @@ public class CepController {
     @GetMapping //Estou testando
     public Mono<CepEntity> findCep2(@RequestBody CepEntity cepEntity) {
         return cepService.findByCep(cepEntity.getCep());
-    }*/
+    }
 }

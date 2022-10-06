@@ -22,16 +22,13 @@ public class PeopleService {
     }
 
     public Mono<PersonEntity> findById(String id) {
-        return peopleRepository.findById(id);
+        return peopleRepository.findById(id)
+                .switchIfEmpty(error(new ApiNotFoundException()));
     }
 
     public Mono<PersonEntity> create(PersonEntity personEntity) {
         return cepService.pesquisarCepESalvarNoBanco(personEntity)
                 .flatMap(peopleRepository::save);
-    }
-
-    public Mono<Boolean> verify(String id) {
-        return peopleRepository.existsById(id);
     }
 
     public Mono<Void> deleteById(String id) {
@@ -47,7 +44,7 @@ public class PeopleService {
                 })
                 .flatMap(cepService::pesquisarCepESalvarNoBanco)
                 .flatMap(peopleRepository::save)
-                .switchIfEmpty(error(new ApiNotFoundException("")));
+                .switchIfEmpty(error(new ApiNotFoundException()));
     }
 
     public Mono<Void> deleteAll() {
