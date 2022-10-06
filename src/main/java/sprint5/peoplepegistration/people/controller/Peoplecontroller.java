@@ -9,6 +9,9 @@ import sprint5.peoplepegistration.people.model.request.PersonRequest;
 import sprint5.peoplepegistration.people.model.response.PersonResponse;
 import sprint5.peoplepegistration.people.service.PeopleService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static sprint5.peoplepegistration.people.model.mapper.PersonMapper.requestPessoa;
@@ -34,19 +37,13 @@ public class Peoplecontroller {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Mono<PersonResponse> create(@RequestBody PersonRequest personRequest) {
+    public Mono<PersonResponse> create(@RequestBody @Valid PersonRequest personRequest) {
         return peopleService.create(requestPessoa(personRequest))
                 .map(PersonMapper::pessoaResponse);
     }
 
     @PutMapping("/{id}")
-    public Mono<PersonResponse> update(@PathVariable String id, @RequestBody PersonRequest personRequest) {
-        return peopleService.update(id, requestPessoa(personRequest))
-                .map(PersonMapper::pessoaResponse);
-    }
-
-    @PutMapping("/2/{id}")
-    public Mono<PersonResponse> update2(@PathVariable String id, @RequestBody PersonRequest personRequest) {
+    public Mono<PersonResponse> update(@PathVariable String id, @RequestBody @Valid PersonRequest personRequest) {
         return peopleService.update(id, requestPessoa(personRequest))
                 .map(PersonMapper::pessoaResponse);
     }

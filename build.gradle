@@ -6,7 +6,6 @@ plugins {
 
 group = 'sprint5'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -30,8 +29,6 @@ dependencies {
     testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
     testImplementation 'io.projectreactor:reactor-test'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
-    compileOnly 'org.mapstruct:mapstruct:1.5.1.Final'
-
 }
 
 tasks.named('test') {

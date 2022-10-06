@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 import sprint5.peoplepegistration.configuration.exception.CepNotFoundException;
-import sprint5.peoplepegistration.configuration.exception.errorresponse.ErrorResponse;
 import sprint5.peoplepegistration.configuration.webClient.cep.IntegrationCepClient;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 

@@ -29,7 +29,6 @@ public class PayByDebitCard implements PayStrategy {
                 shoppingCartService.deleteShoppingCart();
                 return """
                         
-                        
                         Data verification has been sucessfull.\s
                         Paying using DebitCard.""";
             } else {

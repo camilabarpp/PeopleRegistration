@@ -30,9 +30,9 @@ public class PayByCreditCard implements PayStrategy {
                 shoppingCartService.deleteShoppingCart();
                 return """
                         
-                        
                         Data verification has been sucessfull.\s
                         Paying using CreditCard.""";
+
             } else {
                 return "\nWrong number card, date expiration or cvv!";
             }

@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cafe.service.ShoppingCartService;
+import sprint5.peoplepegistration.configuration.exception.ApiNotFoundException;
+import sprint5.peoplepegistration.configuration.exception.DataPaymentNotFound;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.repository.PeopleRepository;
 
+import static reactor.core.publisher.Mono.error;
 import static reactor.core.publisher.Mono.just;
 
 @Service
@@ -28,11 +31,10 @@ public class PayByPayPal implements PayStrategy {
                 shoppingCartService.deleteShoppingCart();
                 return """
                         
-                        
                         Data verification has been sucessfull.\s
                         Paying using PayPal.""";
             } else {
-                return "Wrong email or password!";
+                return "\nWrong email or password!";
             }
         });
     }
