@@ -30,9 +30,9 @@ public class PayByCreditCard implements PayStrategy {
                 shoppingCartService.deleteShoppingCart();
                 return """
                         
-                        
                         Data verification has been sucessfull.\s
                         Paying using CreditCard.""";
+
             } else {
                 return "\nWrong number card, date expiration or cvv!";
             }
@@ -41,7 +41,7 @@ public class PayByCreditCard implements PayStrategy {
 
     @Override
     public Mono<Boolean> verify(PersonEntity personEntity) {
-        return peopleRepository.existsByIdAndCreditCard_NumberAndCreditCard_DateExpirationAndCreditCard_Cvv(
+        return peopleRepository.existsByIdAndCreditCardNumberAndCreditCardDateExpirationAndCreditCardCvv(
                 personEntity.getId(),
                 personEntity.getCreditCard().getNumber(),
                 personEntity.getCreditCard().getDateExpiration(),

@@ -16,12 +16,12 @@ import static org.springframework.http.HttpStatus.*;
 @RestControllerAdvice
 public class ApiExceptionHandler extends DefaultResponseErrorHandler {
 
-    @ExceptionHandler(WebExchangeBindException.class)
-    @ResponseStatus (BAD_REQUEST)
-    public ErrorResponse webExchangeBindException(WebExchangeBindException e) {
+    @ExceptionHandler(ShoppingCartException.class)
+    @ResponseStatus (NOT_FOUND)
+    public ErrorResponse shoppingCartException(ShoppingCartException e) {
         return  new ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
-                .message(e.getMessage())
+                .message("Shopping cart is empty!")
                 .field(NOT_FOUND.name())
                 .parameter(e.getClass().getSimpleName())
                 .build();
@@ -32,8 +32,19 @@ public class ApiExceptionHandler extends DefaultResponseErrorHandler {
     public ErrorResponse apiNotFoundException(ApiNotFoundException e) {
         return  new ErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
-                .message("Dados não encontrados!")
+                .message("Sorry, data not found!")
                 .field(NOT_FOUND.name())
+                .parameter(e.getClass().getSimpleName())
+                .build();
+    }
+
+    @ExceptionHandler(WebExchangeBindException.class)
+    @ResponseStatus (BAD_REQUEST)
+    public ErrorResponse webExchangeBindException(WebExchangeBindException e) {
+        return  new ErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message("Data can not be null or empty!")
+                .field(BAD_REQUEST.name())
                 .parameter(e.getClass().getSimpleName())
                 .build();
     }

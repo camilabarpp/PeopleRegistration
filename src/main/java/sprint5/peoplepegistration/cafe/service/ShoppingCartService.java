@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import sprint5.peoplepegistration.configuration.exception.ShoppingCartException;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ShoppingCartService {
     public Mono<String> showShoppingCart()
     {
         if (items.isEmpty()) {
-            return  Mono.just( "0,00" +
+            throw new ShoppingCartException("0,00" +
                     "\nShopping cart is empty!");
         } else {
             return Mono.just(String.valueOf(items.stream()

@@ -9,11 +9,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cafe.model.payment.CreditCard;
 import sprint5.peoplepegistration.cafe.model.payment.DebitCard;
 import sprint5.peoplepegistration.cafe.model.payment.PayPal;
 import sprint5.peoplepegistration.cep.model.entity.CepEntity;
+
+import javax.validation.constraints.NotBlank;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,18 +23,21 @@ import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 @Data
 public class PersonEntity {
     @Id
-    @ApiModelProperty(notes = "id of the user")
+    @ApiModelProperty(notes = "ID of the user")
     private String id;
-    @ApiModelProperty(notes = "nome of the user")
+    @ApiModelProperty(notes = "Name of the user")
     private String nome;
     @ApiModelProperty(notes = "Birthdate of the user")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private String dataDeNascimento;
 
+    @NotBlank(message = "cep.not.blank")
     private CepEntity cepEntity;
     @ApiModelProperty(notes = "Debit card of the user")
     private DebitCard debitCard;
+    @ApiModelProperty(notes = "Credit card card of the user")
     private CreditCard creditCard;
+    @ApiModelProperty(notes = "PayPal of the user")
     private PayPal paypal;
     public PersonEntity(builder builder) {
         this.id = builder.id;

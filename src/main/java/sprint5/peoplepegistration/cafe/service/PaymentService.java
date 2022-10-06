@@ -11,7 +11,6 @@ import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 @Service
 @AllArgsConstructor
 public class PaymentService {
-    private ShoppingCartService shoppingCartService;
     private PayByCreditCard payByCreditCard;
     private PayByDebitCard payByDebitCard;
     private PayByPayPal payByPayPal;
