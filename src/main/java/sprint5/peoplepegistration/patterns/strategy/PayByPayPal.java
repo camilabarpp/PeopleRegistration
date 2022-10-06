@@ -23,8 +23,8 @@ public class PayByPayPal implements PayStrategy {
     }
     @Override
     public Mono<String> pay(PersonEntity personEntity) {
-        return verify(personEntity).map(teste -> {
-            if (Boolean.TRUE.equals(teste)) {
+        return verify(personEntity).map(verifyIfDataIsCorrect -> {
+            if (Boolean.TRUE.equals(verifyIfDataIsCorrect)) {
                 shoppingCartService.deleteShoppingCart();
                 return """
                         
@@ -39,7 +39,7 @@ public class PayByPayPal implements PayStrategy {
 
     @Override
     public Mono<Boolean> verify(PersonEntity personEntity) {
-        return peopleRepository.existsByIdAndPaypal_EmailAndPaypal_Password(
+        return peopleRepository.existsByIdAndPaypalEmailAndPaypalPassword(
                 personEntity.getId(),
                 personEntity.getPaypal().getEmail(),
                 personEntity.getPaypal().getPassword()

@@ -40,7 +40,7 @@ public class PayByDebitCard implements PayStrategy {
 
     @Override
     public Mono<Boolean> verify(PersonEntity personEntity) {
-        return peopleRepository.existsByIdAndDebitCard_NumberAndDebitCard_DateExpirationAndDebitCard_Cvv(
+        return peopleRepository.existsByIdAndDebitCardNumberAndDebitCardDateExpirationAndDebitCardCvv(
                 personEntity.getId(),
                 personEntity.getDebitCard().getNumber(),
                 personEntity.getDebitCard().getDateExpiration(),

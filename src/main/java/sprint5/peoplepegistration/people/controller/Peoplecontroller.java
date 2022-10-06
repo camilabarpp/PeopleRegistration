@@ -1,7 +1,6 @@
 package sprint5.peoplepegistration.people.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -42,6 +41,12 @@ public class Peoplecontroller {
 
     @PutMapping("/{id}")
     public Mono<PersonResponse> update(@PathVariable String id, @RequestBody PersonRequest personRequest) {
+        return peopleService.update(id, requestPessoa(personRequest))
+                .map(PersonMapper::pessoaResponse);
+    }
+
+    @PutMapping("/2/{id}")
+    public Mono<PersonResponse> update2(@PathVariable String id, @RequestBody PersonRequest personRequest) {
         return peopleService.update(id, requestPessoa(personRequest))
                 .map(PersonMapper::pessoaResponse);
     }
