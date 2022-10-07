@@ -3,12 +3,23 @@ package sprint5.peoplepegistration.cafe.service.facade;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+import sprint5.peoplepegistration.cafe.model.drink.Drink;
 import sprint5.peoplepegistration.cafe.service.CafeService;
 
 @Component
 @AllArgsConstructor
 public class CafeServiceFacade {
     private final CafeService cafeService;
+
+    public Mono<String> deleteShoppingCart() {
+        return cafeService.deleteShoppingCart();
+    }
+    public Mono<String> showMenu() {
+        return cafeService.menu();
+    }
+    public Mono<String> order(String name, Drink drink) {
+        return cafeService.order(name, drink);
+    }
 
     public Mono<String> expresso() {
         return cafeService.expresso();
@@ -33,4 +44,5 @@ public class CafeServiceFacade {
     public Mono<String> britishTea() {
         return cafeService.britishTea();
     }
+
 }

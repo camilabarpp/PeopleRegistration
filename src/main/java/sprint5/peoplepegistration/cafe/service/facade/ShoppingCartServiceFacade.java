@@ -15,11 +15,19 @@ public class ShoppingCartServiceFacade {
         return shoppingCartService.getNomes();
     }
 
+    public Double getPrice(Double item) {
+        return shoppingCartService.getPrice(item);
+    }
 
+    public void addToList(String name) {
+        shoppingCartService.addtolist(name);
+    }
 
     public Mono<Void> deleteShoppingCart() {
         return shoppingCartService.deleteShoppingCart();
     }
 
-
+    public Mono<String> showShoppingCart() {
+        return shoppingCartService.showShoppingCart();
+    }
 }

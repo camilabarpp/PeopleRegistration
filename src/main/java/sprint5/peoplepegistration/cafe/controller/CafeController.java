@@ -3,6 +3,7 @@ package sprint5.peoplepegistration.cafe.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+import sprint5.peoplepegistration.cafe.controller.facade.CafeControllerFacade;
 import sprint5.peoplepegistration.cafe.service.CafeService;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
@@ -12,12 +13,12 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @AllArgsConstructor
 public class CafeController {
 
-    private final CafeService cafeService;
+    private final CafeControllerFacade cafeService;
 
     @DeleteMapping
     @ResponseStatus(NO_CONTENT)
     public Mono<String> deleteShoppingCart() {
-        return Mono.just("Total amount: R$ ");
+        return cafeService.deleteShoppingCart();
     }
 
     @GetMapping()
@@ -36,7 +37,7 @@ public class CafeController {
     }
 
     @GetMapping("/3")
-    public Mono<String> lunog() {
+    public Mono<String> lungo() {
         return cafeService.lungo();
     }
 

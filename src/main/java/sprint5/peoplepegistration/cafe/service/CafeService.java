@@ -6,17 +6,22 @@ import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cafe.model.drink.Drink;
 import sprint5.peoplepegistration.cafe.model.drink.Expresso;
 import sprint5.peoplepegistration.cafe.model.drink.Tea;
+import sprint5.peoplepegistration.cafe.service.facade.ShoppingCartServiceFacade;
 import sprint5.peoplepegistration.patterns.decorator.DoubleDrink;
 import sprint5.peoplepegistration.patterns.decorator.Milk;
 
 @Service
 @AllArgsConstructor
 public class CafeService {
-    private final ShoppingCartService shoppingCartService;
+    private final ShoppingCartServiceFacade shoppingCartServiceFacade;
+
+    public Mono<String> deleteShoppingCart() {
+        return Mono.just("Total amount: R$ ");
+    }
 
     public Mono<String> order(String name, Drink drink) {
-        var sum = shoppingCartService.getPrice(drink.getPrice());
-        shoppingCartService.addtolist(name);
+        var sum = shoppingCartServiceFacade.getPrice(drink.getPrice());
+        shoppingCartServiceFacade.addToList(name);
         return Mono.just("Ordering a " + name +
                 drink.serve() + "\nPrice: R$ " +
                 drink.getPrice() + "\n" + "\nTotal amount: R$ " + sum);
