@@ -10,7 +10,6 @@ import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 @Component
 @AllArgsConstructor
 public class CepServiceFacade {
-
     private final CepService cepService;
 
     public Mono<CepEntity> findByCep(String cep) {

@@ -27,7 +27,7 @@ public class ShoppingCartServiceFacade {
         return shoppingCartService.deleteShoppingCart();
     }
 
-    public Mono<String> showShoppingCart() {
+    public Flux<String> showShoppingCart() {
         return shoppingCartService.showShoppingCart();
     }
 }

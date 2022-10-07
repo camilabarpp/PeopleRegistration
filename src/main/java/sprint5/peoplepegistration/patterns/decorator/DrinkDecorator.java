@@ -6,7 +6,7 @@ public abstract class DrinkDecorator implements Drink {
 
     //Apartir dessa composição, nós vamos conseguir adcionar novas funcionalidades
     //e ainda respeitar a ‘interface’ Drink
-    protected Drink drink;
+    protected final Drink drink;
 
     protected DrinkDecorator(Drink drink) {
         this.drink = drink;

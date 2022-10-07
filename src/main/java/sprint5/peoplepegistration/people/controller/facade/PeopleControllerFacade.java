@@ -7,6 +7,8 @@ import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.service.facade.PeopleServiceFacade;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class PeopleControllerFacade {
@@ -23,11 +25,7 @@ public class PeopleControllerFacade {
     public Mono<PersonEntity> update(String id, PersonEntity personEntity) {
         return peopleServiceFacade.update(id, personEntity);
     }
-    public Mono<Void> deleteById(String id) {
-        return peopleServiceFacade.deleteById(id);
+    public Mono<Void> deleteAllByIDs(List<String> id) {
+        return peopleServiceFacade.deleteAllByIds(id);
     }
-    public Mono<Void> deleteAll() {
-        return peopleServiceFacade.deleteAll();
-    }
-
 }

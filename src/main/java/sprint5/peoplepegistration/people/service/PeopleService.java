@@ -5,10 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import sprint5.peoplepegistration.cep.service.CepService;
+import sprint5.peoplepegistration.cep.service.facade.CepServiceFacade;
 import sprint5.peoplepegistration.configuration.exception.ApiNotFoundException;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.repository.PeopleRepository;
+
+import java.util.List;
 
 import static reactor.core.publisher.Mono.error;
 @Slf4j
@@ -16,7 +18,7 @@ import static reactor.core.publisher.Mono.error;
 @AllArgsConstructor
 public class PeopleService {
     private PeopleRepository peopleRepository;
-    private CepService cepService;
+    private CepServiceFacade cepServiceFacade;
 
     public Flux<PersonEntity> findAll() {
         return peopleRepository.findAll()
@@ -31,14 +33,9 @@ public class PeopleService {
     }
 
     public Mono<PersonEntity> create(PersonEntity personEntity) {
-        return cepService.searchCepAndSavaToDataBase(personEntity)
+        return cepServiceFacade.searchCepAndSavaToDataBase(personEntity)
                 .flatMap(peopleRepository::save)
                 .doOnSuccess(message -> log.info("Person '{}' created with success", personEntity.getNome()));
-    }
-
-    public Mono<Void> deleteById(String id) {
-        return peopleRepository.deleteById(id)
-                .doFinally(message -> log.info("Deleting by ID '{}'!", id));
     }
 
     public Mono<PersonEntity> update(String id, PersonEntity personEntity) {
@@ -47,16 +44,25 @@ public class PeopleService {
                     personEntity.setId(id);
                     peopleRepository.save(person);
                     return personEntity; })
-                .flatMap(cepService::searchCepAndSavaToDataBase)
+                .flatMap(cepServiceFacade::searchCepAndSavaToDataBase)
                 .flatMap(peopleRepository::save)
                 .switchIfEmpty(error(new ApiNotFoundException()))
                 .doOnSuccess(message -> log.info("Updating a person ID '{}' with success!", id))
                 .doOnError(error -> log.error("ID '{}' not found!", id));
     }
+    public Mono<Void> deletePeolpleByIDs(List<String> id) {
+        if (id == null) {
+            return peopleRepository.deleteAll()
+                    .doFinally(message -> log.info("Deleting all people with success!"));
+        } else {
+            return peopleRepository.deleteAllById(id)
+                    .doFinally(message -> log.info("Deleting all people by IDs with success!"));
+        }
+    }
 
-    public Mono<Void> deleteAll() {
-        return peopleRepository.deleteAll()
-                .doFinally(message -> log.info("Deleting all people with success!"));
+    public Mono<Void> deleteAllByIDs(List<String> ids){
+        return peopleRepository.deleteAllById(ids)
+                .switchIfEmpty(peopleRepository.deleteAll());
     }
 
 }

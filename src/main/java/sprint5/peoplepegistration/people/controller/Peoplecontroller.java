@@ -11,6 +11,8 @@ import sprint5.peoplepegistration.people.model.response.PersonResponse;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static sprint5.peoplepegistration.people.model.mapper.PersonMapper.requestPessoa;
@@ -46,16 +48,10 @@ public class Peoplecontroller {
                 .map(PersonMapper::pessoaResponse);
     }
 
-    @DeleteMapping("{id}")
-    @ResponseStatus(NO_CONTENT)
-    public Mono<Void> deleteById(@PathVariable String id) {
-       return peopleControllerFacade.deleteById(id);
-    }
-
     @DeleteMapping
     @ResponseStatus(NO_CONTENT)
-    public Mono<Void> deleteAll() {
-        return peopleControllerFacade.deleteAll();
+    public Mono<Void> deleteAll(@RequestParam(required = false) List<String> ids) {
+        return peopleControllerFacade.deleteAllByIDs(ids);
     }
 
 }
