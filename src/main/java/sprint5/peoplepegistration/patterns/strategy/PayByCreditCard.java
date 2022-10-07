@@ -13,7 +13,7 @@ import static reactor.core.publisher.Mono.just;
 @Service
 @RequiredArgsConstructor
 public class PayByCreditCard implements PayStrategy {
-    private boolean signedIn;
+    // --Commented out by Inspection (07/10/2022 15:16):private boolean signedIn;
     private final ShoppingCartService shoppingCartService;
     private final PeopleRepository peopleRepository;
 

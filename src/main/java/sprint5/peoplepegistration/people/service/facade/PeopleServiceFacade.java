@@ -7,10 +7,11 @@ import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.service.PeopleService;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
 public class PeopleServiceFacade {
-
     private final PeopleService peopleService;
 
     public Flux<PersonEntity> findAll() {
@@ -25,15 +26,14 @@ public class PeopleServiceFacade {
         return peopleService.create(personEntity);
     }
 
-    public Mono<Void> deleteById(String id) {
-        return peopleService.deleteById(id);
-    }
-
     public Mono<PersonEntity> update(String id, PersonEntity personEntity) {
         return peopleService.update(id, personEntity);
     }
 
-    public Mono<Void> deleteAll() {
-        return peopleService.deleteAll();
+    public Mono<Void> deleteAllByIds(List<String> id) {
+        return peopleService.deletePeolpleByIDs(id);
     }
-}
+
+    public Mono<Void> deletePeolpleByIDs(List<String> id) {
+        return peopleService.deleteAllByIDs(id);
+    }}

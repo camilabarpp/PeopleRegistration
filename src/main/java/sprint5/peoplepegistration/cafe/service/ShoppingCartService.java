@@ -8,8 +8,6 @@ import sprint5.peoplepegistration.configuration.exception.ShoppingCartException;
 
 import java.util.List;
 
-import static reactor.core.publisher.Flux.just;
-
 @Service
 @AllArgsConstructor
 public class ShoppingCartService {
@@ -40,15 +38,15 @@ public class ShoppingCartService {
         nomes.add(0, name);
     }
 
-    public Mono<String> showShoppingCart()
+    public Flux<String> showShoppingCart()
     {
         if (items.isEmpty()) {
             throw new ShoppingCartException("0,00" +
                     "\nShopping cart is empty!");
         } else {
-            return Mono.just(String.valueOf(items.stream()
+            return Flux.just(String.valueOf(items.stream()
                     .reduce(Double::sum).
-                    orElse(0d)));
+                    orElse(0d))).concatWith(getNomes());
         }
     }
 }

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cafe.controller.facade.CafeControllerFacade;
-import sprint5.peoplepegistration.cafe.service.CafeService;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
