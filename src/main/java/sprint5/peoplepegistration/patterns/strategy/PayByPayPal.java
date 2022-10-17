@@ -8,8 +8,6 @@ import sprint5.peoplepegistration.cafe.service.ShoppingCartService;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.repository.PeopleRepository;
 
-import static reactor.core.publisher.Mono.just;
-
 @Service
 @AllArgsConstructor
 public class PayByPayPal implements PayStrategy {
@@ -17,21 +15,23 @@ public class PayByPayPal implements PayStrategy {
     private final PeopleRepository peopleRepository;
 
     public Flux<String> showShoppingCart(PersonEntity personEntity) {
-        var text = just("Total amount: R$ ");
-        return text.concatWith(shoppingCartService.showShoppingCart())
-                .concatWith(pay(personEntity));
+        return pay(personEntity)
+                .concatWith(shoppingCartService.showShoppingCart());
     }
+
     @Override
     public Mono<String> pay(PersonEntity personEntity) {
         return verify(personEntity).map(verifyIfDataIsCorrect -> {
             if (Boolean.TRUE.equals(verifyIfDataIsCorrect)) {
                 shoppingCartService.deleteShoppingCart();
-                return """
-                        
+                return """                        
                         Data verification has been sucessfull.\s
-                        Paying using PayPal.""";
+                        Paying using PayPal.
+                        \s""";
             } else {
-                return "\nWrong email or password!";
+                return """
+                        Wrong email or password!\s
+                        """;
             }
         });
     }

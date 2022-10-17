@@ -12,8 +12,8 @@ import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 public class CepServiceFacade {
     private final CepService cepService;
 
-    public Mono<CepEntity> findByCep(String cep) {
-        return cepService.findByCep(cep);
+    public Mono<CepEntity> findCep(String cep) {
+        return cepService.findCep(cep);
     }
 
     public Mono<PersonEntity> searchCepAndSavaToDataBase(PersonEntity personEntity) {

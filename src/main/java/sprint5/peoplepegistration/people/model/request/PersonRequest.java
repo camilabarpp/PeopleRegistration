@@ -1,8 +1,6 @@
 package sprint5.peoplepegistration.people.model.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sprint5.peoplepegistration.cafe.model.payment.CreditCard;
@@ -13,9 +11,8 @@ import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class PersonRequest {
     @NotNull
     @NotBlank(message = "Name can not be null or empty")
@@ -38,7 +35,7 @@ public class PersonRequest {
         this.paypal = builder.paypal;
     }
 
-    @Getter
+    //@Getter
     @NoArgsConstructor
     public static class builder {
         private String nome;

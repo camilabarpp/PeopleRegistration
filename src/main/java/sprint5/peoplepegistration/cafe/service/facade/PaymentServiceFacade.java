@@ -12,8 +12,8 @@ public class PaymentServiceFacade {
 
     private final PaymentService paymentService;
 
-    public Flux<String> payAndVerifyCreditCard(PersonEntity personEntity) {
-        return paymentService.payAndVerifyCreditCard(personEntity);
+    public Flux<String> payAndVerifyCreditCard(PersonEntity creditCard) {
+        return paymentService.payAndVerifyCreditCard(creditCard);
     }
 
     public Flux<String> payAndVerifyDebitCard(PersonEntity personEntity) {

@@ -1,6 +1,6 @@
 package sprint5.peoplepegistration.patterns.strategy;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -8,19 +8,15 @@ import sprint5.peoplepegistration.cafe.service.ShoppingCartService;
 import sprint5.peoplepegistration.people.model.entity.PersonEntity;
 import sprint5.peoplepegistration.people.repository.PeopleRepository;
 
-import static reactor.core.publisher.Mono.just;
-
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class PayByCreditCard implements PayStrategy {
-    // --Commented out by Inspection (07/10/2022 15:16):private boolean signedIn;
     private final ShoppingCartService shoppingCartService;
     private final PeopleRepository peopleRepository;
 
     public Flux<String> showShoppingCart(PersonEntity personEntity) {
-        var text = just("Total amount: R$ ");
-        return text.concatWith(shoppingCartService.showShoppingCart())
-                .concatWith(pay(personEntity));
+        return pay(personEntity)
+                .concatWith(shoppingCartService.showShoppingCart());
     }
 
     @Override
@@ -28,13 +24,13 @@ public class PayByCreditCard implements PayStrategy {
         return verify(personEntity).map(teste -> {
             if (Boolean.TRUE.equals(teste)) {
                 shoppingCartService.deleteShoppingCart();
-                return """
-                        
+                return """               
                         Data verification has been sucessfull.\s
-                        Paying using CreditCard.""";
+                        Paying using CreditCard.
+                        \s""";
 
             } else {
-                return "\nWrong number card, date expiration or cvv!";
+                return "Wrong number card, date expiration or cvv!\n";
             }
         });
     }
