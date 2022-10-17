@@ -19,8 +19,4 @@ public class Milk extends DrinkDecorator {
         return drink.getPrice() + 0.50;
     }
 
-    @Override
-    public String toString() {
-        return "Milk";
-    }
 }

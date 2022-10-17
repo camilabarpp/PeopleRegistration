@@ -22,6 +22,8 @@ public class PeopleService {
 
     public Flux<PersonEntity> findAll() {
         return peopleRepository.findAll()
+                .switchIfEmpty(error(new ApiNotFoundException()))
+                .doOnError(error -> log.error("Sorry, data not found!"))
                 .doFinally(message -> log.info("Showing all peolple!"));
     }
 
@@ -32,12 +34,17 @@ public class PeopleService {
                 .doOnError(error -> log.error("ID '{}' not found!", id));
     }
 
+    public Flux<PersonEntity> findByName(String nome) {
+        return peopleRepository.findByNome(nome)
+                .switchIfEmpty(error(new ApiNotFoundException()));
+    }
+
     public Mono<PersonEntity> create(PersonEntity personEntity) {
         return cepServiceFacade.searchCepAndSavaToDataBase(personEntity)
                 .flatMap(peopleRepository::save)
+                .doOnError(message -> log.error("Sorry, can not create a person!"))
                 .doOnSuccess(message -> log.info("Person '{}' created with success", personEntity.getNome()));
     }
-
     public Mono<PersonEntity> update(String id, PersonEntity personEntity) {
         return peopleRepository.findById(id)
                 .map((PersonEntity person) -> {
@@ -50,6 +57,7 @@ public class PeopleService {
                 .doOnSuccess(message -> log.info("Updating a person ID '{}' with success!", id))
                 .doOnError(error -> log.error("ID '{}' not found!", id));
     }
+
     public Mono<Void> deletePeolpleByIDs(List<String> id) {
         if (id == null) {
             return peopleRepository.deleteAll()
@@ -59,10 +67,4 @@ public class PeopleService {
                     .doFinally(message -> log.info("Deleting all people by IDs with success!"));
         }
     }
-
-    public Mono<Void> deleteAllByIDs(List<String> ids){
-        return peopleRepository.deleteAllById(ids)
-                .switchIfEmpty(peopleRepository.deleteAll());
-    }
-
 }

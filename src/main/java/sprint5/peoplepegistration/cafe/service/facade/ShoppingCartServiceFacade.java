@@ -12,7 +12,7 @@ public class ShoppingCartServiceFacade {
     private ShoppingCartService shoppingCartService;
 
     public Flux<String> getNames() {
-        return shoppingCartService.getNomes();
+        return shoppingCartService.getNames();
     }
 
     public Double getPrice(Double item) {

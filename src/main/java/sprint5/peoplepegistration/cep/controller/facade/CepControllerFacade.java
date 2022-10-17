@@ -16,7 +16,7 @@ public class CepControllerFacade {
     private final CepServiceFacade cepServiceFacade;
 
     public Mono<CepResponse> findCep(@PathVariable @NotNull String cep) {
-        return cepServiceFacade.findByCep(cep)
+        return cepServiceFacade.findCep(cep)
                 .map(CepMapper::responseToEntity);
     }
 

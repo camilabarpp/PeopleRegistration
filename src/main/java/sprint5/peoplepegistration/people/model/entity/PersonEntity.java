@@ -3,7 +3,6 @@ package sprint5.peoplepegistration.people.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +14,6 @@ import sprint5.peoplepegistration.cafe.model.payment.PayPal;
 import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 
 import javax.validation.constraints.NotBlank;
-
-@AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "RegistrationPeople")
 @ApiModel
@@ -99,5 +96,6 @@ public class PersonEntity {
         public PersonEntity build() {
             return new PersonEntity(this);
         }
+
     }
 }

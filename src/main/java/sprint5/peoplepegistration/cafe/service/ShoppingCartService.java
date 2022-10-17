@@ -13,15 +13,15 @@ import java.util.List;
 public class ShoppingCartService {
 
     List<Double> items;
-    List<String> nomes;
+    List<String> names;
 
-    public Flux<String> getNomes() {
-        return Flux.fromIterable(nomes);
+    public Flux<String> getNames() {
+        return Flux.just("\n" + names);
     }
 
     public Mono<Void> deleteShoppingCart() {
         if (!items.isEmpty()) {
-            nomes.clear();
+            names.clear();
            items.clear();
         }
         return Mono.empty();
@@ -35,7 +35,7 @@ public class ShoppingCartService {
     }
 
     public void addtolist(String name) {
-        nomes.add(0, name);
+        names.add(0, name);
     }
 
     public Flux<String> showShoppingCart()
@@ -44,9 +44,10 @@ public class ShoppingCartService {
             throw new ShoppingCartException("0,00" +
                     "\nShopping cart is empty!");
         } else {
-            return Flux.just(String.valueOf(items.stream()
-                    .reduce(Double::sum).
-                    orElse(0d))).concatWith(getNomes());
+            return Flux.just(("\nTotal amount: R$ " + items.stream()
+                    .reduce(Double::sum)
+                    .orElse(0d)))
+                    .concatWith(getNames());
         }
     }
 }

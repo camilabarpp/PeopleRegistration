@@ -24,7 +24,6 @@ public class PaymentService {
     }
 
     public Flux<String> payAndVerifyPayPal(PersonEntity personEntity) {
-        payByPayPal.verify(personEntity);
         return payByPayPal.showShoppingCart(personEntity);
     }
 }

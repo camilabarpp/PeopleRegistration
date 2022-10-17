@@ -8,7 +8,7 @@ import sprint5.peoplepegistration.cep.model.response.CepResponse;
 public class CepMapper {
 
     public static CepResponse responseToEntity(CepEntity cepEntity) {
-        return new CepResponse.builder()
+        return CepResponse.builder()
                 .cep(cepEntity.getCep())
                 .logradouro(cepEntity.getLogradouro())
                 .bairro(cepEntity.getBairro())

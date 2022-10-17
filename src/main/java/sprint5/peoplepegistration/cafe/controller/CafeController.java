@@ -1,6 +1,7 @@
 package sprint5.peoplepegistration.cafe.controller;
 
-import lombok.AllArgsConstructor;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cafe.controller.facade.CafeControllerFacade;
@@ -9,49 +10,52 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 @RestController
 @RequestMapping("/api/v1/menu")
-@AllArgsConstructor
+@Api(value = "People Registration API")
 public class CafeController {
-
-    private final CafeControllerFacade cafeService;
+    private final CafeControllerFacade cafeControllerFacade;
+    @Autowired
+    public CafeController(CafeControllerFacade cafeControllerFacade) {
+        this.cafeControllerFacade = cafeControllerFacade;
+    }
 
     @DeleteMapping
     @ResponseStatus(NO_CONTENT)
     public Mono<String> deleteShoppingCart() {
-        return cafeService.deleteShoppingCart();
+        return cafeControllerFacade.deleteShoppingCart();
     }
 
     @GetMapping()
     public Mono<String> menu() {
-        return cafeService.menu();
+        return cafeControllerFacade.menu();
     }
 
     @GetMapping("/1")
     public Mono<String> expresso() {
-        return cafeService.expresso();
+        return cafeControllerFacade.expresso();
     }
 
     @GetMapping("/2")
     public Mono<String> tea() {
-        return cafeService.tea();
+        return cafeControllerFacade.tea();
     }
 
     @GetMapping("/3")
     public Mono<String> lungo() {
-        return cafeService.lungo();
+        return cafeControllerFacade.lungo();
     }
 
     @GetMapping("/4")
     public Mono<String> cafeAuLait() {
-        return cafeService.cafeAuLait();
+        return cafeControllerFacade.cafeAuLait();
     }
 
     @GetMapping("/5")
     public Mono<String> englishTea() {
-          return cafeService.englishTea();
+          return cafeControllerFacade.englishTea();
     }
 
     @GetMapping("/6")
     public Mono<String> britishTea() {
-        return cafeService.britishTea();
+        return cafeControllerFacade.britishTea();
     }
 }

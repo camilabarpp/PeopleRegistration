@@ -22,6 +22,10 @@ public class PeopleServiceFacade {
         return peopleService.findById(id);
     }
 
+    public Flux<PersonEntity> findByName(String nome) {
+        return peopleService.findByName(nome);
+    }
+
     public Mono<PersonEntity> create(PersonEntity personEntity) {
         return peopleService.create(personEntity);
     }
@@ -33,7 +37,4 @@ public class PeopleServiceFacade {
     public Mono<Void> deleteAllByIds(List<String> id) {
         return peopleService.deletePeolpleByIDs(id);
     }
-
-    public Mono<Void> deletePeolpleByIDs(List<String> id) {
-        return peopleService.deleteAllByIDs(id);
-    }}
+}

@@ -1,71 +1,31 @@
 package sprint5.peoplepegistration.cep.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-@AllArgsConstructor
+@Builder
+@ApiModel
 @NoArgsConstructor
+@AllArgsConstructor
 public class CepEntity {
     @Id
     @NotNull
     @NotBlank
+    @ApiModelProperty(notes = "CEP of the user")
     private String cep;
+    @ApiModelProperty(notes = "Street of the user")
     private String logradouro;
+    @ApiModelProperty(notes = "Neighborhood of the user")
     private String bairro;
+    @ApiModelProperty(notes = "City of the user")
     private String localidade;
+    @ApiModelProperty(notes = "State of the user")
     private String uf;
-
-    public CepEntity(builder builder) {
-        this.cep = builder.cep;
-        this.logradouro = builder.logradouro;
-        this.bairro = builder.bairro;
-        this.localidade = builder.localidade;
-        this.uf = builder.uf;
-    }
-
-    @Getter
-    @NoArgsConstructor
-    public static class builder {
-        private String cep;
-        private String logradouro;
-        private String bairro;
-        private String localidade;
-        private String uf;
-
-        public builder cep(String cep) {
-            this.cep = cep;
-            return this;
-        }
-
-        public builder logradouro(String logradouro) {
-            this.logradouro = logradouro;
-            return this;
-        }
-
-        public builder bairro(String bairro) {
-            this.bairro = bairro;
-            return  this;
-        }
-
-        public builder localidade(String localidade) {
-            this.localidade = localidade;
-            return this;
-        }
-
-        public builder uf(String uf) {
-            this.uf = uf;
-            return this;
-        }
-
-        public CepEntity build() {
-            return new CepEntity(this);
-        }
-    }
 }
+

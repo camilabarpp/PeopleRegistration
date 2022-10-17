@@ -1,6 +1,6 @@
 package sprint5.peoplepegistration.configuration.webClient.cep;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,12 @@ import reactor.core.publisher.Mono;
 import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 
 @Component
-@AllArgsConstructor
 public class IntegrationCepClient {
+    private final WebClient webClient;
 
-    private WebClient webClient;
+    public IntegrationCepClient(@Qualifier("webClient") WebClient webClient) {
+        this.webClient = webClient;
+    }
 
     public Mono<CepEntity> findCep(String cep) {
         return webClient.get()

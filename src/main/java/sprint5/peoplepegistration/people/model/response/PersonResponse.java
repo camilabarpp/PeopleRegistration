@@ -1,7 +1,6 @@
 package sprint5.peoplepegistration.people.model.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +8,6 @@ import org.springframework.data.annotation.Id;
 import sprint5.peoplepegistration.cep.model.entity.CepEntity;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class PersonResponse {
     private String id;
     private String nome;
